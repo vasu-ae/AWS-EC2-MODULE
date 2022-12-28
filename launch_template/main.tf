@@ -51,7 +51,7 @@ resource "aws_launch_template" "my_launch_template" {
   dynamic "network_interfaces" {
     for_each = var.network_interfaces
     content {
-      associate_public_ip_address  = try(network_interfaces.value.associate_public_ip_address, null)
+      # associate_public_ip_address  = try(network_interfaces.value.associate_public_ip_address, null)
       delete_on_termination        = try(network_interfaces.value.delete_on_termination, null)
       device_index                 = try(network_interfaces.value.device_index, null)
       security_groups              = compact(concat(try(network_interfaces.value.security_groups, []), var.security_groups))
