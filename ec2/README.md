@@ -27,7 +27,7 @@ module "ec2_instance" {
 }
 ```
 
-#### Costomize Root volume EC2 Instance
+#### Customize Root volume EC2 Instance
 
 ```ruby
 module "ec2_instance" {
@@ -63,7 +63,7 @@ module "ec2_instance" {
 ]
 }
 ```
-#### Costomize EBS volume EC2 Instance
+#### Customize EBS volume EC2 Instance
 
 ```ruby
 module "ec2_instance" {
@@ -102,7 +102,7 @@ module "ec2_instance" {
 ```
 
 
-#### Costomize Root and EBS volume EC2 Instance
+#### Customize Root and EBS volume EC2 Instance
 
 ```ruby
 module "ec2_instance" {
