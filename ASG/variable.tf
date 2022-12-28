@@ -58,4 +58,9 @@ variable "aws_lb_target_group_arn" {
   default = []
 }
 
+variable "target_groups" {
+  type = number
+  default = null
+}
+
 
