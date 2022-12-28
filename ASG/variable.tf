@@ -48,3 +48,14 @@ variable "create_autoscaling_group_attachment" {
   default = false
 }
 
+variable "aws_autoscaling_group_id" {
+  type = string
+  default = null
+}
+
+variable "aws_lb_target_group_arn" {
+  type = list(string)
+  default = []
+}
+
+
