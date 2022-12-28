@@ -94,11 +94,6 @@ POLICY
 #       cookie_duration = var.cookie_duration
 #       enabled         = var.enabled
 #   }
-
-#   lifecycle {
-#     create_before_destroy = var.create_before_destroy
-#     ignore_changes = var.ignore_changes
-
 #   }
 
 #   tags = merge(
@@ -150,10 +145,6 @@ health_check {
     var.target_group_tags,
     var.default_tags
   )
-}
-
-variable "create_before_destroy" {
-  default = false
 }
 
 resource "aws_lb_listener" "http" {

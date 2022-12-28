@@ -43,3 +43,8 @@ variable "tag" {
   default = []
 }
 
+variable "create_autoscaling_group_attachment" {
+  type = bool
+  default = false
+}
+
