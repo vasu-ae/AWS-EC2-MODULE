@@ -70,5 +70,5 @@ output "autoscaling_group_enabled_metrics" {
 }
 
 output "auto_scaling_group_attachment" {
-  value = aws_autoscaling_attachment.asg_attachment.lb_target_group_arn
+  value = aws_autoscaling_attachment.asg_attachment[0].lb_target_group_arn
 }
