@@ -2,7 +2,7 @@ resource "aws_autoscaling_group" "my_asg" {
   count = var.create_autoscaling_group ? 1 : 0
 
   name                      = var.autosacling_group_name
-  
+
  vpc_zone_identifier       = var.vpc_zone_identifier
  min_size                  = var.min_size
  max_size                  = var.max_size
@@ -30,7 +30,7 @@ resource "aws_autoscaling_group" "my_asg" {
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment" {
-  count = var.create_autoscaling_group_attachment ? length(var.target_groups) : 0
+  count = var.create_autoscaling_group_attachment ? var.target_groups : 0
   autoscaling_group_name = var.aws_autoscaling_group_id
   lb_target_group_arn    = element(var.aws_lb_target_group_arn,count.index)
 }
