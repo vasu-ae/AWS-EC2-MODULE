@@ -68,4 +68,4 @@ $\mathcal{\color{red}{Inputs}}$
 | environment | Environment information  | `string` | `null` | **yes** |
 | application_id | Application information  | `string` | `null` | **yes** |
 | default_tags | Environment information  | `string` | `null` | `no` |security_group_rules
-| security_group_rules | if you need to create one (or) multiple security group rules, use this argument. The given input shoud be list of map value ie. {key = values} | `any` | `[]` | `no` |
+| security_group_rules | if you need to create one (or) multiple security group rules, use this argument. The given input shoud be list of map value ie.{key = values}. refer the above example | `any` | `[]` | `no` |
