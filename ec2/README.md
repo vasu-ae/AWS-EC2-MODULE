@@ -173,7 +173,7 @@ $\mathcal{\color{red}{Inputs}}$
 | monitoring | If true, the launched EC2 instance will have detailed monitoring enabled | `bool` | `fasle` | no |
 | vpc_security_group_ids | "A list of security group IDs to associate with" | `list(string)` | `null` | no |
 | subnet_id | The VPC Subnet ID to launch in | `string` | `null` | no |
-| environment | tag for which environment | `string` | `null` | **yes** |
+| environment | Environment information | `string` | `null` | **yes** |
 | application_id | application id for which application | `string` | `null` | **yes** |
 | user_data | User data to provide when launching the instance | `string` | `null` | no |
 | tenancy | Tenancy of the instance | `string` | `null` | no |
@@ -183,3 +183,5 @@ $\mathcal{\color{red}{Inputs}}$
 | rootebs_block_device | Additional EBS block devices to attach to the instance | `list(map(string))` | `[]` | no |
 | tags | A mapping of tags to assign to the resource | `map(string)` | `{}` | no |
 | default_tags | A map of tags assigned to the resource | `map(string)` | `{}` | no |
+
+

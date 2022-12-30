@@ -1,9 +1,14 @@
 resource "aws_security_group" "security_group" {
-    count = var.security_group_name != "" ? 1 : 0
-  name_prefix = var.security_group_name #Required
+    count = var.create_security ? 1 : 0
+  name = var.security_group_name #Required
   description = var.description #optional
   vpc_id      = var.vpc_id #Required
-  tags            = try(merge(var.sg_tags, var.default_tags),null) #optional
+  tags = merge(
+    {
+      "Name"        = var.security_group_name
+      "Environment" = var.environment
+      "Application ID" = var.application_id
+    },var.default_tags) 
 }
 
 resource "aws_security_group_rule" "security_group_rules" {

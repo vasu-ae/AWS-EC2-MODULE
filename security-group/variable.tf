@@ -1,5 +1,11 @@
+variable "create_security_group" {
+  type = bool
+  description = "Whether to create an instance"
+  default = false
+}
+
 variable "security_group_name" {
-  description = "Name of security group"
+  description = "Name of the security group"
   type        = string
   default     = null
 }
@@ -10,14 +16,22 @@ variable "vpc_id" {
   default = null
 }
 
-variable "sg_tags" {
-  description = "A mapping of tags to assign to security group"
-  type        = map(string)
-  default     = {}
-}
+
 variable "default_tags" {
-  type = any
+  type = map
+  default = {}
+}
+
+variable "environment" {
+  description = "tag for which environment"
+  type = string
   default = null
+}
+
+variable "application_id" {
+  description = "application id for recuirement application"
+  type = string
+  default = null 
 }
 
 variable "security_group_rules" {
