@@ -25,9 +25,9 @@ security_group_rules = security_group_rules = [
 
       cidr_blocks                = ["10.0.0.0/16"]
                 (OR)
-      source_security_group      = true  # if true means the source will be same security group added
+      source_security_group      = true  # if true means same security group will be added as source
                 (OR)
-      source_security_group_id   = ""     # other security group in the source   
+      source_security_group_id   = "sg-id"     # other security group will be added as source
       
 
     },
@@ -39,9 +39,9 @@ security_group_rules = security_group_rules = [
 
       cidr_blocks                = ["0.0.0.0/0"]
                 (OR)
-      source_security_group      = true  # if true means the source will be same security group id added
+      source_security_group      = true  # if true means same security group will be added as source
                 (OR)
-      source_security_group_id   = ""     # other security group in the source
+      source_security_group_id   = "sg-id"     # other security group will be added as source
     }
 
     ]
@@ -68,4 +68,4 @@ $\mathcal{\color{red}{Inputs}}$
 | environment | Environment information  | `string` | `null` | **yes** |
 | application_id | Application information  | `string` | `null` | **yes** |
 | default_tags | Environment information  | `string` | `null` | `no` |security_group_rules
-| security_group_rules | A list of Security Group rule objects. All elements of a list must be exactly the same type; use rules_map if you want to supply multiple lists of different types.The keys and values of the Security Group rule objects are fully compatible with the aws_security_group_rule resource,except for security_group_id which will be ignored, and the optional "key" which, if provided, must be uniqueand known at "plan" time. | `any` | `[]` | `no` |
+| security_group_rules | if you need to create one (or) multiple security group rules, use this argument. The given input shoud be list of map value ie. {key = values} | `any` | `[]` | `no` |
