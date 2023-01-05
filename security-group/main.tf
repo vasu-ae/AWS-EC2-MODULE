@@ -1,5 +1,5 @@
 resource "aws_security_group" "security_group" {
-    count = var.create_security ? 1 : 0
+    count = var.create_security_group ? 1 : 0
   name = var.security_group_name #Required
   description = var.description #optional
   vpc_id      = var.vpc_id #Required
