@@ -30,7 +30,7 @@ resource "aws_autoscaling_group" "my_asg" {
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment" {
-  count = var.create_autoscaling_group_attachment ? var.target_groups : 0
+  count = var.create_autoscaling_group_attachment ? length(var.aws_lb_target_group_arn) : 0
   autoscaling_group_name = var.aws_autoscaling_group_id
   lb_target_group_arn    = element(var.aws_lb_target_group_arn,count.index)
 }
