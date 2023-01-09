@@ -34,6 +34,12 @@ variable "os_version" {
   default     = null
 }
 
+variable "deploy_method" {
+  description = "whether the deployment of the instance is red or black"
+  type        = string
+  default     = ""
+}
+
 variable "instance_type" {
   description = "The type of instance to start"
   type        = string
