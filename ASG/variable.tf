@@ -18,6 +18,12 @@ variable "server_type" {
   default = null  
 }
 
+variable "deploy_method" {
+  description = "whether the deployment of the instance is red or black"
+  type        = string
+  default     = ""
+}
+
 variable "vpc_zone_identifier" {
   type = list(string)
   default = []
