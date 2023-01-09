@@ -1,21 +1,33 @@
 resource "aws_autoscaling_group" "my_asg" {
   count = var.create_autoscaling_group ? 1 : 0
 
-name = var.autosacling_group_name == null ? lower(join("-" , [ join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), "AUS", var.server_type, upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1)]) , join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}"]) ])) : var.eks_autoscaling_group_creation ? upper(join("-" , [ join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","CLU", join("",["AUS", var.server_type]), upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1)]) , join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}"]) ])) : var.autosacling_group_name
+name = var.autosacling_group_name == null ? lower(join("-" , [ join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), "AUS", var.server_type, upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1)]) , join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}"]) ])) : var.eks_autoscaling_group_creation ? upper(join("-" , [ join("",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","CLU", join("",["AUS", var.server_type]), upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1)]) , join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}"]) ])) : var.autosacling_group_name
 
  vpc_zone_identifier       = var.vpc_zone_identifier
- min_size                  = var.min_size
- max_size                  = var.max_size
- desired_capacity          = var.desired_capacity
+ min_size                  = var.autoscaling_group_min_size
+ max_size                  = var.autoscaling_group_max_size
+ desired_capacity          = var.autoscaling_group_desired_capacity
 
 
   launch_template {
       id      = var.launch_template_id
-      version = var.launch_template_version
+      version = var.launch_template_version != null ? var.launch_template_version : "$Latest"
+  }
+
+  tag {
+      key =  "Application ID" 
+      value =  var.application_id
+      propagate_at_launch  = true
+  }
+
+  tag {
+      key =  "Environment"
+      value =  var.environment
+      propagate_at_launch  = true
   }
 
   dynamic "tag" {
-    for_each = var.tag != [] ? var.tag : []
+    for_each = var.additional_tag != [] ? var.additional_tag : []
     content {
       key = tag.value.key
       value = tag.value.value
