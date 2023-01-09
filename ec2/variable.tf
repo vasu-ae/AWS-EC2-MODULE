@@ -10,8 +10,26 @@ variable "ami" {
   default     = null
 }
 
-variable "name" {
+variable "instance_name" {
   description = "Name of the instance"
+  type        = string
+  default     = null
+}
+
+variable "server_type" {
+  description = "type of the server"
+  type        = string
+  default     = null 
+}
+
+variable "layer" {
+  description = "layer of the server"
+  type        = string
+  default     = null
+}
+
+variable "os_version" {
+  description = "os version of the server"
   type        = string
   default     = null
 }
