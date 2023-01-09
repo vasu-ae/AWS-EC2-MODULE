@@ -8,22 +8,32 @@ variable "autosacling_group_name" {
   default = null
 }
 
+variable "eks_autoscaling_group_creation" {
+  type = bool
+  default = false
+}
+
+variable "server_type" {
+  type = string
+  default = null  
+}
+
 variable "vpc_zone_identifier" {
   type = list(string)
   default = []
 }
 
-variable "min_size" {
+variable "autoscaling_group_min_size" {
   type = number
   default = null
 }
 
-variable "max_size" {
+variable "maxautoscaling_group_min_max_size" {
   type = number
   default = null
 }
 
-variable "desired_capacity" {
+variable "autoscaling_group_desired_capacity" {
   type = number
   default = null
 }
@@ -38,7 +48,7 @@ variable "launch_template_version" {
   default = null  
 }
 
-variable "tag" {
+variable "additional_tag" {
   type = any
   default = []
 }
@@ -58,9 +68,17 @@ variable "aws_lb_target_group_arn" {
   default = []
 }
 
-variable "target_groups" {
-  type = number
+variable "environment" {
+  description = "tag for which environment"
+  type = string
   default = null
 }
+
+variable "application_id" {
+  description = "application id for recuirement application"
+  type = string
+  default = null 
+}
+
 
 
