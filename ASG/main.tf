@@ -24,6 +24,12 @@ name = var.autosacling_group_name == null && var.eks_autoscaling_group_creation 
       propagate_at_launch  = true
   }
 
+    tag {
+      key =  "Name"
+      value =  var.instance_name == null ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",[var.server_type ,substr(var.layer,0,1),var.os_version]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}",var.deploy_method != "" ? substr(var.deploy_method,0,1): ""]) ])) : var.instance_name
+      propagate_at_launch  = true
+  }
+
   dynamic "tag" {
     for_each = var.additional_tag != [] ? var.additional_tag : []
     content {
