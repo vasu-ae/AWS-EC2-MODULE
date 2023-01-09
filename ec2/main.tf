@@ -41,7 +41,6 @@ resource "aws_instance" "ec2_instance" {
       volume_size           = lookup(ebs_block_device.value, "volume_size", null)
       volume_type           = lookup(ebs_block_device.value, "volume_type", null)
       throughput            = lookup(ebs_block_device.value, "throughput", null)
-      tags                  = lookup(ebs_block_device.value, "tags", null)
     }
   }
 
@@ -51,5 +50,35 @@ resource "aws_instance" "ec2_instance" {
       "Environment" = var.environment
       "Application ID" = var.application_id
     },var.default_tags)
+}
+
+
+
+
+
+
+resource "aws_ebs_volume" "ebs_volume" {
+  count = var.create_ebs_volume ? 1 : 0
+
+  encrypted             = try(var.encrypted, null)
+  iops                  = try(var.iops, null)
+  kms_key_id            = try(var.kms_key_id, null)
+  snapshot_id           = try(var.snapshot_id, null)
+  size                  = try(var.volume_size, null)
+  type                  = try(var.volume_type, null)
+  throughput            = try(var.throughput, null)
+  ebs_tags              = try(var.tags, null)
+
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
+}
+
+
+resource "aws_volume_attachment" "ebs_attachment" {
+  count = var.create_ebs_volume_attachment ? 1 : 0
+  device_name = var.ebs_block_device_name
+  volume_id   = var.ebs_volume_id
+  instance_id = var.instance_id
 }
 
