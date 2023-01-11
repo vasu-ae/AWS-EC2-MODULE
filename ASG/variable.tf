@@ -105,4 +105,15 @@ variable "application_id" {
 }
 
 
+variable "standard_name" {
+  type = any
+  default = null
+}
+
+locals {
+  standard_name = {
+    
+  }
+}
+
 
