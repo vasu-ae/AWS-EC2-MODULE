@@ -1,3 +1,6 @@
+/***************************************************
+// EC2 INSTANCE VARIABLES
+***************************************************/
 variable "create_instance" {
   type = bool
   description = "Whether to create an instance"
@@ -124,12 +127,19 @@ variable "application_id" {
 }
 
 
-
+/****************************************************************
+//EBS VOLUME VARIABLES
+***************************************************************/
 
 variable "create_ebs_volume" {
   description = "Whether to create an ebs volume"
   type = bool
   default = false
+}
+variable "ebs_volume_name" {
+  description = "Name of the ebs volume"
+  type = string
+  default = null  
 }
 
 variable "encrypted" {
@@ -168,11 +178,15 @@ variable "throughput" {
   default = null
 }
 
-variable "ebs_tag" {
+variable "additional_ebs_tags" {
   description = "A map of tags to assign to the ebs volume"
   type = map(string)
   default = null
 }
+
+/***************************************************************
+// EBS VOLUME ATTACHMENT VARIABLES
+**************************************************************/
 
 variable "create_ebs_volume_attachment" {
   description = "Whether to create an ebs volume attachment"
@@ -180,7 +194,7 @@ variable "create_ebs_volume_attachment" {
   default = false
 }
 
-variable "ebs_block_device_name" {
+variable "ebs_volume_name" {
   description = "Name of the EBS volume"
   type = string
   default = null

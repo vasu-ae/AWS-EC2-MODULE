@@ -1,6 +1,7 @@
-/**********************
-//Ec2 instance
-***********************/
+/*********************************************************
+//EC2 INSTANCE RESOURCE BLOCK
+**********************************************************/
+
 resource "aws_instance" "ec2_instance" {
   count = var.create_instance ? 1 : 0
   ami                                  = var.ami #required
@@ -54,8 +55,9 @@ resource "aws_instance" "ec2_instance" {
 
 
 
-
-
+/*********************************************************
+//EBS VOLUME RESOURCE BLOCK
+**********************************************************/
 
 resource "aws_ebs_volume" "ebs_volume" {
   count = var.create_ebs_volume ? 1 : 0
@@ -67,7 +69,14 @@ resource "aws_ebs_volume" "ebs_volume" {
   size                  = try(var.volume_size, null)
   type                  = try(var.volume_type, null)
   throughput            = try(var.throughput, null)
-  ebs_tags              = try(var.tags, null)
+  #ebs_tags              = try(var.tags, null)
+  tags = merge(
+    {
+      "Name"        = var.ebs_volume_name == null ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",[var.server_type ,substr(var.layer,0,1),var.os_version]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}",var.deploy_method != "" ? substr(var.deploy_method,0,1): ""]) ])) : var.instance_name
+      "Environment" = var.environment
+      "Application ID" = var.application_id
+    },var.additional_ebs_tags)
+
 
   # lifecycle {
   #   prevent_destroy = true
@@ -75,9 +84,14 @@ resource "aws_ebs_volume" "ebs_volume" {
 }
 
 
+
+/*********************************************************
+//EBS VOLUME ATTACHMENT RESOURCE BLOCK
+**********************************************************/
+
 resource "aws_volume_attachment" "ebs_attachment" {
   count = var.create_ebs_volume_attachment ? 1 : 0
-  device_name = var.ebs_block_device_name
+  device_name = var.ebs_volume_name
   volume_id   = var.ebs_volume_id
   instance_id = var.instance_id
 }

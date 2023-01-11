@@ -3,7 +3,7 @@
 Terraform module which creates an EC2 instance on AWS.
 ## Usage
 
-#### EC2 Instance with default root volume
+#### EC2 Instance with default root volume and customized instance name
 
 ```ruby
 module "ec2_instance" {
@@ -27,7 +27,7 @@ module "ec2_instance" {
 }
 ```
 
-#### Customize Root volume EC2 Instance
+#### EC2 Instance with Customize Root volume and instance name
 
 ```ruby
 module "ec2_instance" {
@@ -63,7 +63,7 @@ module "ec2_instance" {
 ]
 }
 ```
-#### Customize EBS volume EC2 Instance
+#### EC2 Instance Customize EBS volume and instance name
 
 ```ruby
 module "ec2_instance" {
@@ -102,7 +102,7 @@ module "ec2_instance" {
 ```
 
 
-#### Customize Root and EBS volume EC2 Instance
+#### EC2 Instance with Customize Root & EBS volume and instance name
 
 ```ruby
 module "ec2_instance" {
