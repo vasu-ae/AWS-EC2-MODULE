@@ -111,9 +111,7 @@ variable "standard_name" {
 }
 
 locals {
-  standard_name = {
-    
-  }
+  standard_name = var.standard_name
 }
 
 
