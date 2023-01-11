@@ -104,6 +104,16 @@ variable "application_id" {
   default = null 
 }
 
+variable "autosacling_group_type" {
+  type = string
+  default = ""
+}
+
+variable "LOB" {
+  type = string
+  default = ""
+}
+
 
 variable "standard_name" {
   type = any
