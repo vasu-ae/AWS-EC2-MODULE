@@ -62,6 +62,8 @@ resource "aws_instance" "ec2_instance" {
 resource "aws_ebs_volume" "ebs_volume" {
   count = var.create_ebs_volume ? 1 : 0
 
+  availability_zone = "us-east-1a"
+
   encrypted             = try(var.encrypted, null)
   iops                  = try(var.iops, null)
   kms_key_id            = try(var.kms_key_id, null)

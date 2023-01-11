@@ -148,6 +148,10 @@ variable "encrypted" {
   default = null
 }
 
+variable "iops" {
+  default = null
+}
+
 variable "kms_key_id" {
   description = "The ARN for the KMS encryption key. When specifying kms_key_id, encrypted needs to be set to true"
   type = string
@@ -194,11 +198,11 @@ variable "create_ebs_volume_attachment" {
   default = false
 }
 
-variable "ebs_volume_name" {
-  description = "Name of the EBS volume"
-  type = string
-  default = null
-}
+# variable "ebs_volume_name" {
+#   description = "Name of the EBS volume"
+#   type = string
+#   default = null
+# }
 
 variable "ebs_volume_id" {
   description = "ID of the Volume to be attached instance"
