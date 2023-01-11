@@ -110,8 +110,8 @@ variable "standard_name" {
   default = null
 }
 
-locals {
-  standard_name = var.standard_name
-}
+# locals {
+#   standard_name = var.standard_name
+# }
 
 
