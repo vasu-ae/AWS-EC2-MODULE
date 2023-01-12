@@ -45,12 +45,12 @@ variable "description" {
   default = null
 }
 
-variable "eks_security_group_creation" {
+variable "create_eks_cluster_security_group" {
   type = bool
   default = false
 }
 
-variable "eks_worker_security_group_creation" {
+variable "create_eks_worker_security_group" {
   type = bool
   default = false 
 }
