@@ -6,7 +6,7 @@ resource "aws_security_group" "security_group" {
   vpc_id      = var.vpc_id #Required
   tags = merge(
     {
-      "Name"        = var.security_group_name
+      "Name"        = var.security_group_name == null && var.create_eks_cluster_security_group == false && var.create_eks_worker_security_group == false ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",["SG",var.server_type]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}"]) ])) : var.security_group_name == null && var.create_eks_cluster_security_group ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS",join("",["CLU","SG"]),join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ])) : var.security_group_name == null && var.create_eks_worker_security_group ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS",join("",["SG" ,var.server_type ]),join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ])) :  var.security_group_name
       "Environment" = var.environment
       "Application ID" = var.application_id
     },var.default_tags) 
