@@ -62,5 +62,5 @@ variable "server_type" {
 
 variable "LOB" {
   type = string
-  default = null
+  default = ""
 }
