@@ -1,6 +1,7 @@
 resource "aws_security_group" "security_group" {
     count = var.create_security_group ? 1 : 0
-  name = var.security_group_name #Required
+  #name = var.security_group_name #Required
+  name =  var.security_group_name == null && var.eks_security_group_creation == false ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("","SG",var.server_type), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}"]) ])) : var.security_group_name == null && var.eks_cluster_security_group_creation ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS",join("",["CLU","SG"]),join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ])) : var.security_group_name == null && var.eks_worker_security_group_creation ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS",join("",["SG" ,var.server_type ]),join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ])) :  var.security_group_name
   description = var.description #optional
   vpc_id      = var.vpc_id #Required
   tags = merge(

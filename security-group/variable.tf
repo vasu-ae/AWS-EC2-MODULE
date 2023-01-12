@@ -44,3 +44,23 @@ variable "description" {
   type = string
   default = null
 }
+
+variable "eks_security_group_creation" {
+  type = bool
+  default = false
+}
+
+variable "eks_worker_security_group_creation" {
+  type = bool
+  default = false 
+}
+
+variable "server_type" {
+  type = string
+  default = "WEB"
+}
+
+variable "LOB" {
+  type = string
+  default = null
+}
