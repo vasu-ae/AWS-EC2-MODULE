@@ -1,13 +1,32 @@
 variable "create_launch_template" {
   description = "Determines whether to create launch template or not"
   type        = bool
-  default     = true
+  default     = false
 }
+
+variable "create_eks_nodegroup_launch_template" {
+  description = "Determines whether to create launch template or not"
+  type        = bool
+  default     = false
+}
+
+variable "create_eks_worker_linux_launch_template" {
+  description = "Determines whether to create launch template or not"
+  type        = bool
+  default     = false
+}
+
+variable "create_eks_worker_windows_launch_template" {
+  description = "Determines whether to create launch template or not"
+  type        = bool
+  default     = false
+}
+
 
 variable "launch_template_name" {
   description = "Name of launch template to be created"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "image_id" {
