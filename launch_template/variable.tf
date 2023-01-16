@@ -147,5 +147,14 @@ variable "default_tags" {
 }
 
 
+variable "server_type" {
+  type = string
+  default = ""
+}
+
+variable "LOB" {
+  type = string
+  default = ""
+}
 
 

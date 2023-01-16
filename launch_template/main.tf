@@ -1,7 +1,7 @@
 resource "aws_launch_template" "my_launch_template" {
-  count = var.create_launch_template ? 1 : 0
+  count = var.create_launch_template || var.create_eks_nodegroup_launch_template || var.create_eks_worker_linux_launch_template || var.create_eks_worker_windows_launch_template ? 1 : 0
 
-  name        = var.launch_template_name
+  name        = var.launch_template_name == null && var.create_eks_nodegroup_launch_template == false && var.create_eks_worker_linux_launch_template == false && var.create_eks_worker_windows_launch_template == false ? local.standard_name : var.launch_template_name == null && var.create_eks_nodegroup_launch_template ? local.node_group_name : var.launch_template_name == null && var.create_eks_worker_linux_launch_template ? local.worker_linux_name : var.launch_template_name == null && var.create_eks_worker_windows_launch_template ? local.worker_windows_name : var.launch_template_name
   ebs_optimized = var.ebs_optimized
   image_id      = var.image_id
   instance_type = var.instance_type
@@ -78,6 +78,16 @@ resource "aws_launch_template" "my_launch_template" {
   }
 
 }
+
+
+locals {
+  standard_name       = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),join("",["LTP",var.server_type]),join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.application_id]) ]))
+  node_group_name     = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","LTPNG", join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ]))
+  worker_linux_name   = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","CLU","LTPLX", join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ]))
+  worker_windows_nmae = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","CLU","LTPW9", join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ]))
+
+}
+
 
 
 
