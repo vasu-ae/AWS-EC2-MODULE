@@ -84,7 +84,7 @@ locals {
   standard_name       = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),join("",["LTP",var.server_type]),join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.application_id]) ]))
   node_group_name     = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","LTPNG", join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ]))
   worker_linux_name   = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","CLU","LTPLX", join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ]))
-  worker_windows_nmae = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","CLU","LTPW9", join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ]))
+  worker_windows_name = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"),"EKS","CLU","LTPW9", join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.LOB]) ]))
 
 }
 
