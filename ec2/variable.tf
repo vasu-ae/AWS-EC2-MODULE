@@ -216,4 +216,9 @@ variable "instance_id" {
   default = null
 }
 
+variable "standard_name" {
+  type = map
+  default = {}
+}
+
 
