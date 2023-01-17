@@ -13,7 +13,7 @@ resource "aws_security_group" "security_group" {
 }
 
 resource "aws_security_group_rule" "security_group_rules" {
-  count = length(var.security_group_rules)# Required
+  count = local.control ? length(var.security_group_rules) : 0 
   
   security_group_id = aws_security_group.security_group[0].id
   protocol          = var.security_group_rules[count.index].protocol
