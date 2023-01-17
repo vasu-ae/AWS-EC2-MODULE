@@ -8,7 +8,7 @@ variable "autosacling_group_name" {
   default = null
 }
 
-variable "eks_autoscaling_group_creation" {
+variable "create_eks_autoscaling_group" {
   type = bool
   default = false
 }
