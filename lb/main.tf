@@ -145,7 +145,7 @@ health_check {
 
   tags = merge(
     {
-      "Name"        = var.target_group_name == null ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",["TGP" , var.server_type]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.application_id]) ])) : var.target_group_name
+      "name"        = var.target_group_name == null ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",["TGP" , var.server_type]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }",var.application_id]) ])) : var.target_group_name
       "Environment" = var.environment
       "Application ID" = var.application_id
     },var.default_tags) 
