@@ -141,6 +141,18 @@ variable "default_tags" {
   default     = {}
 }
 
+variable "environment" {
+  description = "tag for which environment"
+  type = string
+  default = null
+}
+
+variable "application_id" {
+  description = "application id for recuirement application"
+  type = string
+  default = null 
+}
+
 /***********************************************************************
 // Target group variables
 /***********************************************************************/
