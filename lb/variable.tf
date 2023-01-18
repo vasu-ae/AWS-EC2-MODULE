@@ -1,6 +1,15 @@
 /***********************************************************************
 // Load balancer variables
 /***********************************************************************/
+variable "create_loadbalancer" {
+  type        = bool
+  default     = false
+}
+
+variable "server_type" {
+  type = string
+  default = null
+}
 variable "lb_name" {
   description = "The resource name of the load balancer."
   type        = string
@@ -154,6 +163,11 @@ variable "vpc_id" {
 variable "create_target_group" {
   type = bool
   default = false
+}
+
+variable "target_group_name" {
+  type = string
+  default = null
 }
 
 

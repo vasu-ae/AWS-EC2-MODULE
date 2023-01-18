@@ -1,7 +1,7 @@
 resource "aws_lb" "lb" {
-  count = var.lb_name != "" ? 1 : 0
+  count = var.create_loadbalancer ? 1 : 0
 
-  name        = var.lb_name
+  name        = var.lb_name == null ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",["ALB" , var.server_type]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }"]) ])) : var.lb_name
   load_balancer_type = var.load_balancer_type
   internal           = var.scheme
   security_groups    = var.lb_security_group
@@ -31,10 +31,12 @@ resource "aws_lb" "lb" {
     delete = var.load_balancer_delete_timeout
   }
 
-    tags = merge(
-    var.lb_tags,
-    var.default_tags,
-  )
+  tags = merge(
+    {
+      "Name"        = var.lb_name == null ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",["ALB" , var.server_type]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }"]) ])) : var.lb_name
+      "Environment" = var.environment
+      "Application ID" = var.application_id
+    },var.default_tags) 
 }
 
 
@@ -142,9 +144,11 @@ health_check {
   }
 
   tags = merge(
-    var.target_group_tags,
-    var.default_tags
-  )
+    {
+      "Name"        = var.target_group_name == null ? upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",["TGP" , var.server_type]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }"]) ])) : var.target_group_name
+      "Environment" = var.environment
+      "Application ID" = var.application_id
+    },var.default_tags) 
 }
 
 resource "aws_lb_listener" "http" {
