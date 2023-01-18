@@ -182,6 +182,11 @@ variable "target_group_name" {
   default = null
 }
 
+variable "standard_name" {
+  type = any
+  default = []
+}
+
 
 /***********************************************************************
 // HTTP listener variables
