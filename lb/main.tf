@@ -122,7 +122,7 @@ POLICY
 resource "aws_lb_target_group" "target_group" {
 count = var.create_target_group ? length(var.target_groups) : 0
   vpc_id               = var.vpc_id
-  name                 = 
+  name                 = var.target_group_name == null ? upper(join("-",[(var.standard_name[count.index].environment == "DRE" ? "AZO" : "AZV"), join("",["TGP" , var.standard_name[count.index].server_type]), join("",["${upper(var.standard_name[count.index].environment)=="DRE" || upper(var.standard_name[count.index].environment)=="DBG" ? substr(var.standard_name[count.index].environment,1,1) : substr(var.standard_name[count.index].environment,0,1) }",var.standard_name[count.index].application_id]) ])) : var.target_group_name
   port                 = lookup(var.target_groups[count.index], "port", null)
   protocol             = lookup(var.target_groups[count.index], "protocol", null)
   protocol_version     = lookup(var.target_groups[count.index], "protocol_version", null)
@@ -145,7 +145,7 @@ health_check {
 
   tags = merge(
     {
-      "name"        = var.target_group_name == null ? upper(join("-",[(var.standard_name[count.index].environment == "DRE" ? "AZO" : "AZV"), join("",["TGP" , var.standard_name[count.index].server_type]), join("",["${upper(var.standard_name[count.index].environment)=="DRE" || upper(var.standard_name[count.index].environment)=="DBG" ? substr(var.standard_name[count.index].environment,1,1) : substr(var.standard_name[count.index].environment,0,1) }"]) ])) : var.target_group_name
+      "Name"        = var.target_group_name == null ? upper(join("-",[(var.standard_name[count.index].environment == "DRE" ? "AZO" : "AZV"), join("",["TGP" , var.standard_name[count.index].server_type]), join("",["${upper(var.standard_name[count.index].environment)=="DRE" || upper(var.standard_name[count.index].environment)=="DBG" ? substr(var.standard_name[count.index].environment,1,1) : substr(var.standard_name[count.index].environment,0,1) }",var.standard_name[count.index].application_id]) ])) : var.target_group_name
       "Environment" = var.environment
       "Application ID" = var.application_id
     },var.default_tags) 
