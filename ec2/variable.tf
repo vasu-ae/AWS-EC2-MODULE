@@ -114,6 +114,11 @@ variable "default_tags" {
   default = {}
 }
 
+variable "volume_tags" {
+  type = map
+  default = {} 
+}
+
 variable "environment" {
   description = "tag for which environment"
   type = string

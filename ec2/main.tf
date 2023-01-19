@@ -51,6 +51,10 @@ resource "aws_instance" "ec2_instance" {
       "Environment" = var.environment
       "Application ID" = var.application_id
     },var.default_tags)
+
+  volume_tags = var.volume_tags  
+
+
 }
 
 
