@@ -184,6 +184,37 @@ resource "aws_lb_listener" "https" {
   }
 }
 
+
+resource "aws_lb_listener_rule" "listener_rule" {
+  count        = var.create_listener_rule ? 0 : 1
+  listener_arn = var.lb_listener.arn
+  action {
+    type             = "forward"
+    target_group_arn = var.target_group_arn
+  }
+  condition {
+    path_pattern {
+      values = [var.path]
+    }
+  }
+}
+
+variable "path" {
+  type = list
+  default = []
+}
+
+variable "lb_listener" {
+  type = string
+  default = null
+}
+
+variable "target_group_arn" {
+  type = string
+  default = null
+}
+
+
 resource "aws_lb_target_group_attachment" "lb_target_attachment" {
 for_each = { for k, v in local.target_group_attachments : k => v if var.create_lb_target_attachment == true}
   target_group_arn = aws_lb_target_group.target_group[each.value.tg_index].arn #aws_lb_target_group.target_group[0].arn
