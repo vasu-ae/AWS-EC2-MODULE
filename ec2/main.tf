@@ -54,7 +54,7 @@ resource "aws_instance" "ec2_instance" {
 
   volume_tags = merge(
     {
-     "Name"        = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), join("",[var.standard_name["server_type"] ,substr(var.standard_name["layer"],0,1),var.standard_name["os_version"]]), join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}",var.standard_name["deploy_method"] != "" ? substr(var.standard_name["deploy_method"],0,1): ""]) ]))
+     "Name"        = upper(join("-",[(var.environment == "DRE" ? "AZO" : "AZV"), var.standard_name["server_type"],join("",["${upper(var.environment)=="DRE" || upper(var.environment)=="DBG" ? substr(var.environment,1,1) : substr(var.environment,0,1) }","${var.application_id}"]) ]))
       "Environment" = var.environment
       "Application ID" = var.application_id
     },var.default_tags)  
