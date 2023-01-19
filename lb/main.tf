@@ -199,6 +199,10 @@ resource "aws_lb_listener_rule" "listener_rule" {
   }
 }
 
+variable "create_listener_rule" {
+  default = false
+}
+
 variable "path" {
   type = list
   default = []
