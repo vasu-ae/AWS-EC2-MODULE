@@ -26,7 +26,7 @@ resource "aws_instance" "ec2_instance" {
       volume_size           = lookup(root_block_device.value, "volume_size", null)
       volume_type           = lookup(root_block_device.value, "volume_type", null)
       throughput            = lookup(root_block_device.value, "throughput", null)
-      tags                  = lookup(root_block_device.value, "tags", null)
+      # tags                  = lookup(root_block_device.value, "tags", null)
     }
   }
 
