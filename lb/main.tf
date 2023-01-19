@@ -204,7 +204,7 @@ variable "create_listener_rule" {
 }
 
 variable "path" {
-  type = list
+  type = list(string)
   default = []
 }
 
