@@ -45,7 +45,7 @@ output "https_listener_ids" {
 
 output "target_group_arn" {
   description = "ARNs of the target groups. Useful for passing to your Auto Scaling group"
-  value       = aws_lb_target_group.target_group
+  value       = try(aws_lb_target_group.target_group[*].arn,"")
 }
 
 output "target_group_arn_suffixes" {
