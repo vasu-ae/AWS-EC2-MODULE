@@ -199,8 +199,8 @@ variable "create_listener_HTTP" {
 
 variable "http_target_group_arn" {
   description = "ARN of the Target Group to which to route traffic. "
-  type = string
-  default = null
+  type = list(string)
+  default = []
 }
 variable "http_listener_tags" {
   description = "A map of tags for what you want to add in this listener."
@@ -218,8 +218,8 @@ variable "create_listener_HTTPS" {
 
 variable "https_target_group_arn" {
   description = "ARN of the Target Group to which to route traffic. "
-  type = string
-  default = null
+  type = list(string)
+  default = []
 }
 
 variable "https_ssl_policy" {
