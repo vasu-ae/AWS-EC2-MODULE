@@ -145,8 +145,8 @@ variable "force_delete" {
 }
 
 variable "target_group_arns" {
-  type = string
-  default = null  
+  type = list(string)
+  default = []
 }
 
 variable "suspended_processes" {
