@@ -62,3 +62,9 @@ output "targets" {
   description = "ARNs of the target group attachment IDs"
   value       = { for k, v in aws_lb_target_group_attachment.lb_target_attachment : k => v.id }
 }
+
+output "arn" {
+  description = "ARNs of the target group attachment IDs"
+  value       = try(aws_lb_target_group.target_group[*].arn,"")
+}
+
