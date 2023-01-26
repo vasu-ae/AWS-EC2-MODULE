@@ -57,6 +57,62 @@ resource "aws_autoscaling_attachment" "asg_attachment" {
 
 
 
+resource "aws_autoscaling_group" "asg_targets" {
+  count = local.create && var.create_autoscaling_group_with_targets || var.create_eks_autoscaling_group ? 1 : 0
+
+  name = var.autosacling_group_name == null && var.create_eks_autoscaling_group == false ? local.ec2_standard_name : var.autosacling_group_name == null && var.create_eks_autoscaling_group ? local.eks_worker_group_name : var.autosacling_group_name
+ vpc_zone_identifier       = var.vpc_zone_identifier
+ min_size                  = var.autoscaling_group_min_size
+ max_size                  = var.autoscaling_group_max_size
+ desired_capacity          = var.autoscaling_group_desired_capacity
+
+health_check_grace_period = var.health_check_grace_period
+health_check_type         = var.health_check_type
+force_delete              = var.force_delete
+target_group_arns         = var.target_group_arns
+suspended_processes = var.suspended_processes
+
+
+  launch_template {
+      id      = var.launch_template_id
+      version = var.launch_template_version != null ? var.launch_template_version : "$Latest"
+  }
+
+    tag {
+      key =  "Name"
+      value =  var.instance_name == null && var.create_eks_autoscaling_group == false ? local.standard_instance_name : var.instance_name == null && var.create_eks_autoscaling_group ? local.eks_node_name : var.instance_name
+      propagate_at_launch  = true
+    }
+
+  tag {
+      key =  "Application ID" 
+      value =  var.application_id
+      propagate_at_launch  = true
+   }
+
+  tag {
+      key =  "Environment"
+      value =  var.environment
+      propagate_at_launch  = true
+   }
+
+  dynamic "tag" {
+    for_each = var.additional_tag != [] ? var.additional_tag : []
+    content {
+      key = tag.value.key
+      value = tag.value.value
+      propagate_at_launch = tag.value.propagate_at_launch
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+
+  }
+}
+
+
+
 
 
 

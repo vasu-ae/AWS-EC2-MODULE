@@ -124,4 +124,35 @@ variable "standard_name" {
 #   standard_name = var.standard_name
 # }
 
+variable "create_autoscaling_group_with_targets" {
+   type = bool
+  default = false 
+}
+
+variable "health_check_grace_period" {
+  type = string
+  default = null 
+}
+
+variable "health_check_type" {
+  type = string
+  default = null  
+}
+
+variable "force_delete" {
+  type = bool
+  default = false
+}
+
+variable "target_group_arns" {
+  type = string
+  default = null  
+}
+
+variable "suspended_processes" {
+  description = "Suspend process for EC2 Server"
+  type = list(string)
+  default = []
+}
+
 
