@@ -153,13 +153,13 @@ health_check {
 }
 
 resource "aws_lb_listener" "http" {
-  count             = var.create_listener_HTTP ? 1 : 0
+  count             = var.create_listener_HTTP ? length(var.create_listener_HTTP): 0
   load_balancer_arn = aws_lb.lb[0].arn
   port              = "80" #var.http_port
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = var.http_target_group_arn        #aws_lb_target_group.target_group[0].arn
+    target_group_arn = element(var.http_target_group_arn,count.index)        #aws_lb_target_group.target_group[0].arn
     type             = "forward"
 
     # tags              = merge(var.http_listener_tags,var.default_tags)
@@ -168,7 +168,7 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_lb_listener" "https" {
-  count             = var.create_listener_HTTPS ? 1 : 0
+  count             = var.create_listener_HTTPS ? length(var.create_listener_HTTPS) : 0
   load_balancer_arn = aws_lb.lb[0].arn
 
   port            = "443" #var.https_port
@@ -178,7 +178,7 @@ resource "aws_lb_listener" "https" {
   # tags            = merge(var.https_listener_tags, var.default_tags)
 
   default_action {
-     target_group_arn = var.https_target_group_arn       #aws_lb_target_group.target_group[0].arn
+     target_group_arn = element(var.https_target_group_arn,count.index)      #aws_lb_target_group.target_group[0].arn
     type             = "forward"
 
   }
