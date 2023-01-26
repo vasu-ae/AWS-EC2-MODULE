@@ -153,7 +153,7 @@ health_check {
 }
 
 resource "aws_lb_listener" "http" {
-  count             = var.create_listener_HTTP ? length(var.create_listener_HTTP): 0
+  count             = var.create_listener_HTTP ? length(var.http_target_group_arn): 0
   load_balancer_arn = aws_lb.lb[0].arn
   port              = "80" #var.http_port
   protocol          = "HTTP"
@@ -168,7 +168,7 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_lb_listener" "https" {
-  count             = var.create_listener_HTTPS ? length(var.create_listener_HTTPS) : 0
+  count             = var.create_listener_HTTPS ? length(var.https_target_group_arn) : 0
   load_balancer_arn = aws_lb.lb[0].arn
 
   port            = "443" #var.https_port
