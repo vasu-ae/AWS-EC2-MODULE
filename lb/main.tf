@@ -185,19 +185,19 @@ resource "aws_lb_listener" "https" {
 }
 
 
-resource "aws_lb_listener_rule" "listener_rule" {
-  count        = var.create_listener_rule ? 0 : 1
-  listener_arn = var.lb_listener
-  action {
-    type             = "forward"
-    target_group_arn = var.target_group_arn
-  }
-  condition {
-    path_pattern {
-      values = [var.path]
-    }
-  }
-}
+# resource "aws_lb_listener_rule" "listener_rule" {
+#   count        = var.create_listener_rule ? 0 : 1
+#   listener_arn = var.lb_listener
+#   action {
+#     type             = "forward"
+#     target_group_arn = var.target_group_arn
+#   }
+#   condition {
+#     path_pattern {
+#       values = [var.path]
+#     }
+#   }
+# }
 
 variable "create_listener_rule" {
   default = false
@@ -205,7 +205,7 @@ variable "create_listener_rule" {
 
 variable "path" {
   type = list(string)
-  default = []
+  default = ""
 }
 
 variable "lb_listener" {
