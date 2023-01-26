@@ -69,7 +69,7 @@ resource "aws_autoscaling_group" "my_asg_with_targets" {
 health_check_grace_period = var.health_check_grace_period
 health_check_type         = var.health_check_type
 force_delete              = var.force_delete
-target_group_arns         = element(var.aws_lb_target_group_arn,count.index)
+target_group_arns         = [element(var.aws_lb_target_group_arn,count.index)]
 suspended_processes = var.suspended_processes
 
 
