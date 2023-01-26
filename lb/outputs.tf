@@ -65,6 +65,11 @@ output "targets" {
 
 output "arn" {
   description = "ARNs of the target group attachment IDs"
-  value       = tolist(try(aws_lb_target_group.target_group[*].arn,""))
+  value       = try(aws_lb_target_group.target_group[*].arn,"")
 }
+
+# output "arn" {
+#   description = "ARNs of the target group attachment IDs"
+#   value       = tolist(try(aws_lb_target_group.target_group[*].arn,""))
+# }
 
