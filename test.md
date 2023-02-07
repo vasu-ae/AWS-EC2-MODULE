@@ -49,6 +49,7 @@ No modules.
 | <a name="input_standard_name"></a> [standard\_name](#input\_standard\_name) | Name of the instance as per devops pillar standards. | `map` | `{}` | no |
 | <a name="input_suspended_processes"></a> [suspended\_processes](#input\_suspended\_processes) | Suspend process for EC2 Server | `list(string)` | `[]` | no |
 | <a name="input_target_group_arns"></a> [target\_group\_arns](#input\_target\_group\_arns) | n/a | `list(string)` | `[]` | no |
+| <a name="input_vasu"></a> [vasu](#input\_vasu) | n/a | `string` | `""` | no |
 | <a name="input_vpc_zone_identifier"></a> [vpc\_zone\_identifier](#input\_vpc\_zone\_identifier) | n/a | `list(string)` | `[]` | no |
 
 ## Outputs
